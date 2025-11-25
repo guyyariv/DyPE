@@ -60,6 +60,8 @@ python run_dype.py --method base
 
 Generated images will be saved to the `outputs/` folder (created automatically).
 
+For Qwen-Image generation, use the ```run_dype_qwen.py``` script. It operates similarly to the standard script but defaults to the Qwen model architecture.
+
 ## License and Commercial Use
 
 This work is patent pending. For commercial use or licensing inquiries, please contact the [authors](mailto:noam.issachar@mail.huji.ac.il).
