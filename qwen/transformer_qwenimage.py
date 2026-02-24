@@ -297,8 +297,9 @@ class QwenEmbedRope(nn.Module):
 
         # Apply DyPE scaling to beta parameters if enabled
         if self.dype:
-            beta_0 = beta_0 ** (2.0 * (self.current_timestep ** 2.0))
-            beta_1 = beta_1 ** (2.0 * (self.current_timestep ** 2.0))
+            kappa = self.current_timestep ** 2.0  # κ(t) = t^{λ_t}, λ_t=2
+            beta_0 = beta_0 * kappa
+            beta_1 = beta_1 * kappa
 
         # First interpolation: between linear and NTK
         low, high = find_correction_range(beta_0, beta_1, dim, theta, self.base_patches)
@@ -310,8 +311,8 @@ class QwenEmbedRope(nn.Module):
 
         # Apply DyPE scaling to gamma parameters if enabled
         if self.dype:
-            gamma_0 = gamma_0 ** (2.0 * (self.current_timestep ** 2.0))
-            gamma_1 = gamma_1 ** (2.0 * (self.current_timestep ** 2.0))
+            gamma_0 = gamma_0 * kappa
+            gamma_1 = gamma_1 * kappa
 
         # Second interpolation: between result and base
         low, high = find_correction_range(gamma_0, gamma_1, dim, theta, self.base_patches)
