@@ -602,8 +602,9 @@ def get_1d_rotary_pos_embed(
             freqs_ntk = freqs_ntk.squeeze()
 
         if dype:
-            beta_0 = beta_0 ** (2.0 * (current_timestep ** 2.0))
-            beta_1 = beta_1 ** (2.0 * (current_timestep ** 2.0))
+            kappa = current_timestep ** 2.0  # κ(t) = t^{λ_t}, λ_t=2
+            beta_0 = beta_0 * kappa
+            beta_1 = beta_1 * kappa
 
         low, high = find_correction_range(beta_0, beta_1, dim, theta, ori_max_pe_len)
         low = max(0, low)
@@ -613,8 +614,8 @@ def get_1d_rotary_pos_embed(
         freqs = freqs_linear * (1 - freqs_mask) + freqs_ntk * freqs_mask
 
         if dype:
-            gamma_0 = gamma_0 ** (2.0 * (current_timestep ** 2.0))
-            gamma_1 = gamma_1 ** (2.0 * (current_timestep ** 2.0))
+            gamma_0 = gamma_0 * kappa
+            gamma_1 = gamma_1 * kappa
 
         low, high = find_correction_range(gamma_0, gamma_1, dim, theta, ori_max_pe_len)
         low = max(0, low)
