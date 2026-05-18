@@ -1,4 +1,4 @@
-# DyPE: Dynamic Position Extrapolation for Ultra High Resolution Diffusion
+# [ICML 2026] DyPE: Dynamic Position Extrapolation for Ultra High Resolution Diffusion
 
 <div align="center">
 
